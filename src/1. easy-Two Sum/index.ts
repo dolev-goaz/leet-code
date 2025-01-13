@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/two-sum/
 
+import { testMethod } from "../test_utils";
 import { compareArrays } from "../test_utils/array";
 
 /*
@@ -31,21 +32,8 @@ function twoSum(nums: number[], target: number): [number, number] {
     return [-1, -1]; // shouldn't reach here
 };
 
-const tests: Array<[number[], number, [number, number]]> = [
-    [[2,7,11,15], 9, [0, 1]],
-    [[3,2,4], 6, [1, 2]],
-    [[3,3], 6, [0, 1]],
-]
-
-function test() {
-    for(const [nums, sum, expected] of tests) {
-        const result = twoSum(nums, sum);
-    
-        if (!compareArrays(result, expected)) {
-            console.log("Test failed")
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-test();
+testMethod(twoSum, [
+    [[[2,7,11,15], 9], [0, 1]],
+    [[[3,2,4], 6], [1, 2]],
+    [[[3,3], 6], [0, 1]],
+], { multipleInputs: true })

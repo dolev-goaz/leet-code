@@ -1,3 +1,4 @@
+import { compareArrays } from "./array";
 
 type TestCase<TArgs, TReturn> = [TArgs, TReturn];
 
@@ -19,15 +20,18 @@ export function testMethod<TArg, TReturn>(
     options?: { multipleInputs: boolean },
 ){
     const isArgsArray = options?.multipleInputs;
+    let errorCount = 0;
     for(const [args, expected] of testCases) {
         // @ts-ignore 
         const result = isArgsArray? testMethod(...args): testMethod(args);
     
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
+        const success = Array.isArray(expected)? compareArrays(result as any[], expected): (result == expected);
+        if (!success) {
+            console.error(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
+            ++errorCount
         }
     }
-
+    if (errorCount == 0) {
+        console.log("Test passed!");
+    }
 }

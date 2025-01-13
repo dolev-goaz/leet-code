@@ -1,5 +1,6 @@
 // https://leetcode.com/problems/add-two-numbers/
 
+import { testMethod } from "../test_utils"
 import { compareArrays } from "../test_utils/array"
 
 class ListNode {
@@ -90,23 +91,12 @@ function toArray(list: ListNode) {
     return out;
 }
 
-const tests = [
-    [[2,4,3], [5,6,4], [7,0,8]],
-    [[0], [0], [0]],
-    [[9,9,9,9,9,9,9], [9,9,9,9], [8,9,9,9,0,0,0,1]]
-]
-
-function test() {
-    for(const [l1, l2, expected] of tests) {
-        const l1_list = createListNode(l1);
-        const l2_list = createListNode(l2);
-        const result = toArray(addTwoNumbers(l1_list, l2_list));
-    
-        if (!compareArrays(result, expected)) {
-            console.log("Test failed")
-        } else {
-            console.log("Test passed")
-        }
-    }
+function methodWrapper(l1: number[], l2: number[]) {
+    return toArray(addTwoNumbers(createListNode(l1), createListNode(l2)));
 }
-test();
+
+testMethod(methodWrapper, [
+    [[[2,4,3], [5,6,4]], [7,0,8]],
+    [[[0], [0]], [0]],
+    [[[9,9,9,9,9,9,9], [9,9,9,9]], [8,9,9,9,0,0,0,1]]
+], { multipleInputs: true });
