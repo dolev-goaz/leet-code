@@ -17,7 +17,6 @@ if (!matchingFolder) {
     process.exit(2);
 }
 
-console.log("Question found")
 const tsPath = `${matchingFolder.parentPath}/${matchingFolder.name}/index.ts`;
 
 const {exec} = require('child_process');
