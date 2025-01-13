@@ -1,3 +1,5 @@
+import { testMethod } from "../test_utils";
+
 const entries: [string, number][] = [
     ['M', 1000],
     ['CM', 900],
@@ -24,22 +26,8 @@ function romanToInt(s: string): number {
     return out;
 };
 
-function test() {
-    const tests: Array<[string, number]> = [
+testMethod(romanToInt, [
         ["MMMDCCXLIX", 3749],
         ["LVIII", 58],
         ["MCMXCIV", 1994],
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = romanToInt(s);
-    
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-
-test();
+]);

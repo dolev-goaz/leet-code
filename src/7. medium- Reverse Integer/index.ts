@@ -4,6 +4,8 @@ If reversing x causes the value to go outside the signed 32-bit integer range [-
 Assume the environment does not allow you to store 64-bit integers (signed or unsigned). 
 */
 
+import { testMethod } from "../test_utils";
+
 const MAX_VALUE = (1 << 30) * 2 - 1;
 const MIN_VALUE = (1 << 31); // overflows to negative max
 
@@ -32,24 +34,9 @@ function reverse(x: number): number {
     }
     return out;
 };
-
-function test() {
-    const tests: Array<[number, number]> = [
-        [123, 321],
-        [-123, -321],
-        [120, 21],
-        [1463847412, 2147483641]
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = reverse(s);
-    
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-
-test();
+testMethod(reverse,[
+    [123, 321],
+    [-123, -321],
+    [120, 21],
+    [1463847412, 2147483641]
+]);

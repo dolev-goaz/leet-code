@@ -2,6 +2,8 @@
 Given an integer x, return true if x is a palindrome, and false otherwise.
 */
 
+import { testMethod } from "../test_utils";
+
 function getDigitCount(x: number) {
     return x <= 1? 1: Math.ceil(Math.log10(x));
 }
@@ -29,24 +31,10 @@ function isPalindrome(x: number): boolean {
     return true;
 };
 
-function test() {
-    const tests: Array<[number, boolean]> = [
-        [121, true],
-        [-121, false],
-        [10, false],
-        [1221, true],
-        [1222, false]
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = isPalindrome(s);
-    
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-
-test();
+testMethod(isPalindrome, [
+    [121, true],
+    [-121, false],
+    [10, false],
+    [1221, true],
+    [1222, false]
+]);

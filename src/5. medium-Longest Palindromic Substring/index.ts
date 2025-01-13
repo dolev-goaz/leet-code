@@ -1,5 +1,7 @@
 // https://leetcode.com/problems/longest-palindromic-substring/
 
+import { testMethod } from "../test_utils";
+
 /*
     Given a string s, return the longest palindromic substring in s.
 
@@ -63,23 +65,9 @@ function longestPalindrome(s: string): string {
     return max;
 };
 
-function test() {
-    const tests: Array<[string, string]> = [
-        ["babad", "bab"],
-        ["cbbd", "bb"],
-        ["aaaaa", "aaaaa"],
-        ["aaaa", "aaaa"],
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = longestPalindrome(s);
-    
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-
-test();
+testMethod(longestPalindrome, [
+    ["babad", "bab"],
+    ["cbbd", "bb"],
+    ["aaaaa", "aaaaa"],
+    ["aaaa", "aaaa"],
+]);

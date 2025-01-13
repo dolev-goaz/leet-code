@@ -17,6 +17,8 @@
 
 */
 
+import { testMethod } from "../test_utils";
+
 // solution is done via sliding-window
 function lengthOfLongestSubstring(s: string): number {
     if (!s) return 0;
@@ -47,23 +49,8 @@ function lengthOfLongestSubstring(s: string): number {
     return current_length > max? current_length: max;
 };
 
-// testing
-function test() {
-    const tests: Array<[string, number]> = [
-        ["abbabcbb", 3],
-        ["bbbbb", 1],
-        ["pwwkew", 3],
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = lengthOfLongestSubstring(s);
-    
-        if (result != expected) {
-            console.log("Test failed")
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-
-test();
+testMethod(lengthOfLongestSubstring, [
+    ["abbabcbb", 3],
+    ["bbbbb", 1],
+    ["pwwkew", 3],
+]);

@@ -1,3 +1,5 @@
+import { testMethod } from "../test_utils";
+
 const entries: [number, string][] = [
     [1000, 'M'],
     [900, 'CM'],
@@ -29,22 +31,8 @@ function intToRoman(num: number, start: number = 0): string {
     return maxPair[1].repeat(count) + intToRoman(num - temp, maxValueIndex);
 };
 
-function test() {
-    const tests: Array<[number, string]> = [
-        [3749, "MMMDCCXLIX"],
-        [58, "LVIII"],
-        [1994, "MCMXCIV"],
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = intToRoman(s);
-    
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-
-test();
+testMethod(intToRoman, [
+    [3749, "MMMDCCXLIX"],
+    [58, "LVIII"],
+    [1994, "MCMXCIV"],
+]);

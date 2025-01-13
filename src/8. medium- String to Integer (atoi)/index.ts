@@ -10,6 +10,8 @@ Rounding: If the integer is out of the 32-bit signed integer range [-231, 231 - 
 Return the integer as the final result.
 */
 
+import { testMethod } from "../test_utils";
+
 const MAX_VALUE = (1 << 30) * 2 - 1;
 const MIN_VALUE = (1 << 31); // overflows to negative max
 
@@ -54,26 +56,13 @@ function myAtoi(s: string): number {
     return out;
 };
 
-function test() {
-    const tests: Array<[string, number]> = [
-        // ["42", 42],
-        // ["-042", -42],
-        // ["1337c0d3", 1337],
-        // ["0-1", 0],
-        // ["words and 987", 0],
-        // ["-91283472332", MIN_VALUE],
-        ["-2147483649", MIN_VALUE]
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = myAtoi(s);
-    
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
 
-test();
+testMethod(myAtoi, [
+    ["42", 42],
+    ["-042", -42],
+    ["1337c0d3", 1337],
+    ["0-1", 0],
+    ["words and 987", 0],
+    ["-91283472332", MIN_VALUE],
+    ["-2147483649", MIN_VALUE]
+]);

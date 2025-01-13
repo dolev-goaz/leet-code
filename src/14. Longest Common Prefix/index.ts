@@ -1,3 +1,5 @@
+import { testMethod } from "../test_utils";
+
 function longestCommonPrefix(strs: string[]): string {
    if (strs.length == 0) return "";
    if (strs.length == 1) return strs[0];
@@ -15,22 +17,8 @@ function longestCommonPrefix(strs: string[]): string {
    return strs[0]; // never broke, all strs are at least the same length as first string
 };
 
-function test() {
-    const tests: Array<[string[], string]> = [
+testMethod(longestCommonPrefix, [
         [["flower","flow","flight"], "fl"],
         [["flower","flower","flower","flower"], "flower"],
         [["dog","racecar","car"], ""],
-    ];
-    
-    for(const [s, expected] of tests) {
-        const result = longestCommonPrefix(s);
-    
-        if (result != expected) {
-            console.log(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
-        } else {
-            console.log("Test passed")
-        }
-    }
-}
-
-test();
+]);
