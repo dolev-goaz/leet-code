@@ -27,7 +27,7 @@ export function testMethod<TArg, TReturn>(
     
         const success = Array.isArray(expected)? compareArrays(result as any[], expected): (result == expected);
         if (!success) {
-            console.error(`Test failed\nExpected:'${expected}'.\nGot: '${result}'`)
+            console.error(`Test failed\nExpected: '${expected}'.\nGot     : '${result}'`)
             ++errorCount
         }
     }
