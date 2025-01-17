@@ -2,9 +2,9 @@ import { testMethod } from "../test_utils";
 
 const BOARD_SIZE = 9;
 
-const rowMap = new Map<number, Set<number>>();
-const colMap = new Map<number, Set<number>>();
-const squareMap = new Map<number, Set<number>>();
+const rowOptions = new Array<Set<number>>(BOARD_SIZE);
+const colOptions = new Array<Set<number>>(BOARD_SIZE);
+const squareOptions = new Array<Set<number>>(BOARD_SIZE);
 
 const zeroCharCode = '0'.charCodeAt(0);
 
@@ -14,10 +14,6 @@ const squareIndices = Array.from({ length: BOARD_SIZE }, (_, i) =>
 
 
 function loadMaps(board: string[][]): void {
-    rowMap.clear();
-    colMap.clear();
-    squareMap.clear();
-
     for(let row = 0; row < BOARD_SIZE; ++row) {
         const seen = Array.from({length: BOARD_SIZE}).fill(false) as boolean[];
         // get all possible for current row
@@ -33,7 +29,7 @@ function loadMaps(board: string[][]): void {
             if (!seen[i]) acc.add(i+1);
         }
 
-        rowMap.set(row, acc);
+        rowOptions[row] = acc;
     }
 
     for(let col = 0; col < BOARD_SIZE; ++col) {
@@ -51,7 +47,7 @@ function loadMaps(board: string[][]): void {
             if (!seen[i]) acc.add(i+1);
         }
 
-        colMap.set(col, acc);
+        colOptions[col] = acc;
     }
 
     for(let square = 0; square < BOARD_SIZE; ++square) {
@@ -71,7 +67,7 @@ function loadMaps(board: string[][]): void {
             if (!seen[i]) acc.add(i+1);
         }
 
-        squareMap.set(square, acc);
+        squareOptions[square] = acc;
     }
 
 }
@@ -79,23 +75,23 @@ function loadMaps(board: string[][]): void {
 function getAvailableValues(row: number, col: number) {
     const squareIndex = squareIndices[row][col];
     return new Set(
-        [...rowMap.get(row)!].filter(
-            (value) => colMap.get(col)!.has(value) && squareMap.get(squareIndex)!.has(value)
+        [...rowOptions[row]].filter(
+            (value) => colOptions[col].has(value) && squareOptions[squareIndex].has(value)
         )
     );
 }
 
 function removeAvailableValue(row: number, col: number, value: number) {
     const squareIndex = squareIndices[row][col];
-    colMap.get(col)!.delete(value)
-    rowMap.get(row)!.delete(value)
-    squareMap.get(squareIndex)!.delete(value);
+    colOptions[col].delete(value)
+    rowOptions[row].delete(value)
+    squareOptions[squareIndex].delete(value);
 }
 function restoreAvailableValue(row: number, col: number, value: number) {
     const squareIndex = squareIndices[row][col];
-    colMap.get(col)!.add(value)
-    rowMap.get(row)!.add(value)
-    squareMap.get(squareIndex)!.add(value);
+    colOptions[col].add(value)
+    rowOptions[row].add(value)
+    squareOptions[squareIndex].add(value);
 }
 
 function solveRecursive(board: string[][], cell_index: number) {
